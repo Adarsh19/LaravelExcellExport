@@ -12,3 +12,5 @@
 */
 
 Route::get('/elastic', 'elasticController@index');
+
+Route::post('form-search', 'elasticController@searchByDate')->name('export.excel');

@@ -27,10 +27,28 @@ class ElasticController extends Controller
     {
         $order = Orders::all();
 
-        dd($order);
-
-        return view('airlines.index',compact('airlines'))->with('i');
+        return view('elastic.index',compact('order'))->with('i');
     }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function searchByDate(Request $request )
+    {
+        $input = $request->all();
+        dd($input);
+       $vision = Vision1::where('id',$data['vision_id'])->get();    
+
+
+        return json_encode($input);
+    }
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
