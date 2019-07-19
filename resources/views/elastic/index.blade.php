@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="csrf-token" content="{{ csrf_token() }}"/>
         <title>Sample elatic search results</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,62 +23,24 @@
     </head>
     <body>
         <div class="bs-example">
-            
             <h1><strong>Elastic search form</strong></h1>
-            
-            <form action="{{route('export.excel')}}" method="POST">
-            <div class="form-group">
-                <label for="email">From Date</label>
-                <input type="date" class="form-control" id="fromDate" name="fromDate">
-            </div>
-            <div class="form-group">
-                <label for="pwd">To Date:</label>
-                <input type="date" class="form-control" id="toDate" name="toDate">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <form class="note-form" action="{{route('export.excel')}}" method="POST">
+                <div class="form-group">
+                    <label for="email">From Date</label>
+                    <input type="date" class="form-control" id="fromDate" name="fromDate">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">To Date:</label>
+                    <input type="date" class="form-control" id="toDate" name="toDate">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <table class="table table-striped table-bordered hide" id="tblExport" cellspacing="0" cellpadding="0">
-                <thead class="black white-text">
-                    <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">data 1</th>
-                        <th scope="col">data 2</th>
-                        <th scope="col">data 3</th>
-                        <th scope="col">data 4</th>
-                        <th scope="col">data 5</th>
-                        <th scope="col">data 6</th>
-                        <th scope="col">data 7</th>
-                        <th scope="col">data 8</th>
-                        <th scope="col">data 9</th>
-                        <th scope="col">data 10</th>
-                        <th scope="col">data 11</th>
-                        <th scope="col">data 12</th>
-                        <th scope="col">TRN</th>
-                        <th scope="col">Created date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($order as $ord)
-                    <tr>
-                        <td scope="row">{{ ++ $i  }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->ord_dbpaa_transferrate }}</td>
-                        <td>{{ $ord->trn }}</td>
-                        <td>{{ date('d-m-Y', strtotime($ord->created_at)) }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+            <div id="appendData">
+
+                    </div>
+
+            
         </div>
     </body>
     <script src="{{ URL::asset('js/script.js') }}"></script>
@@ -93,10 +56,17 @@
     <script src='https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js'></script>
     <script src='https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js'></script>
     <script type="text/javascript">
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+
+
     $(function () {
-        $("#tblExport").table2excel({
-        filename: "Table.xls"
-        });
+        
 
             $('.note-form').on('submit',function(e){
             
@@ -109,8 +79,9 @@
             dataType: 'html',
             data: form.serialize(),
             success: function(result) {
+              
+                $('#appendData').append(result);
             
-            console.log(result);
             }
             });
             });

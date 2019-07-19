@@ -45,12 +45,7 @@ $(document).ready(function() {
 		}]
 	});
 
-
-
-	  //$('.buttons-excel').click()
-	
-		
-
+	 // $('.buttons-excel').click()
 
 });
 

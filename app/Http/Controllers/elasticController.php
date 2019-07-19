@@ -38,12 +38,15 @@ class ElasticController extends Controller
      */
     public function searchByDate(Request $request )
     {
-        $input = $request->all();
-        dd($input);
-       $vision = Vision1::where('id',$data['vision_id'])->get();    
+     
+       $input = $request->all(); 
+       
+       $orders = Orders::where('created_at','>=',$input['fromDate'])->where('created_at','<=',$input['toDate'])->get();    
 
+       $view = view("elastic.ajaxTableData",compact('orders','i'))->render();
+        
+        return $view;
 
-        return json_encode($input);
     }
 
 
