@@ -21,7 +21,7 @@ $app = new Illuminate\Foundation\Application(
 |--------------------------------------------------------------------------
 |
 | Next, we need to bind some important interfaces into the container so
-| we will be able to resolve them when needed. The kernels serve the
+| we will be able https://drive.google.com/file/d/1zbZn5JqJakcg-A8ePL4EnbB3E993V0Fx/view to resolve them when needed. The kernels serve the
 | incoming requests to this application from both the web and CLI.
 |
 */
