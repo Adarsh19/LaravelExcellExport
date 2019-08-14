@@ -14,3 +14,20 @@
 Route::get('/elastic', 'elasticController@index');
 
 Route::post('form-search', 'elasticController@searchByDate')->name('export.excel');
+
+Route::prefix('elasticsearch')->group( function(){
+
+    Route::get('test', ['uses' => 'ClientController@elasticsearchTest']);
+
+});
+
+
+Route::get('/', function(){
+
+    $client = Elasticsearch\ClientBuilder::create()->build();
+
+   dd($client);
+
+});
+
+

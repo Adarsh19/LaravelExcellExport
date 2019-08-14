@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Orders;
@@ -29,8 +28,6 @@ class ElasticController extends Controller
 
         return view('elastic.index',compact('order'))->with('i');
     }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -45,14 +42,9 @@ class ElasticController extends Controller
 
        $view = view("elastic.ajaxTableData",compact('orders','i'))->render();
         
-        return $view;
+       return $view;
 
     }
-
-
-
-
-
     /**
      * Show the form for creating a new resource.
      *
